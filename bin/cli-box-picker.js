@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 
-const { pickBox } = require("../lib");
+const { pickBox } = require('../lib');
 
 (async () => {
   const result = await pickBox({
-    question: "What are you doing now?",
+    question: 'What are you doing now?',
     choices: {
-      c: "Coding",
-      r: "Reviewing",
-      s: "Sleeping",
+      c: { value: 'Coding', description: 'Writing new code right now' },
+      r: { value: 'Reviewing', description: 'Reading or reviewing changes' },
+      s: { value: 'Sleeping', description: 'Away from keyboard' }
     },
-    borderStyle: "round",
+    borderStyle: 'round',
+    descriptionDisplay: 'selected'
   });
 
-  console.log("You selected:", result.value);
+  console.log('You selected:', result.value);
 })();
