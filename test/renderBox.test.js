@@ -19,7 +19,7 @@ afterEach(() => {
 });
 
 test('renders inline descriptions with wrapping and indentation', () => {
-  const box = renderBox(
+  const { text } = renderBox(
     'Q:',
     [{ key: 'a', label: 'Alpha' }],
     0,
@@ -28,11 +28,45 @@ test('renders inline descriptions with wrapping and indentation', () => {
     [['This description is long enough to wrap to the next line']]
   );
 
-  const lines = box.split('\n');
+  const lines = text.split('\n');
   const descLines = lines.filter((line) => line.includes('description') || line.includes('wrap'));
 
   assert(descLines.length >= 2, 'description should wrap to multiple lines');
   descLines.forEach((line) => {
     assert(/^│ {9}/.test(line), 'description lines should keep indent within the box');
   });
+});
+
+test('shows boxed message when terminal is too narrow (<19 columns total)', () => {
+  Object.defineProperty(process.stdout, 'columns', { value: 18, configurable: true });
+  const { text, isNarrow } = renderBox(
+    'Q',
+    [{ key: 'a', label: 'Alpha' }],
+    0,
+    'round',
+    [],
+    [[]]
+  );
+  assert.strictEqual(isNarrow, true);
+  const lines = text.split('\n');
+  assert(lines[0].startsWith('╭'), 'has top border');
+  assert(lines[lines.length - 1].startsWith('╰'), 'has bottom border');
+  assert(lines.some((l) => l.includes('Too narrow')), 'contains english narrow message');
+});
+
+test('throws if boxWidth is below 15', () => {
+  Object.defineProperty(process.stdout, 'columns', { value: 80, configurable: true });
+  assert.throws(
+    () =>
+      renderBox(
+        'Q',
+        [{ key: 'a', label: 'Alpha' }],
+        0,
+        'round',
+        [],
+        [[]],
+        10
+      ),
+    /boxWidth must be at least 15/
+  );
 });

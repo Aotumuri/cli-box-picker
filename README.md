@@ -63,6 +63,7 @@ const { pickBox } = require('cli-box-picker');
 | `descriptionPlacement` | `'inline' \| 'footer'` | `'inline'` | Where to show descriptions. |
 | `descriptionDisplay` | `'selected' \| 'always' \| 'none'` | `'selected'` | When to show descriptions. |
 | `showFooterHint` | `boolean` | `true` | Show the hint line “Use arrows or hotkeys, Enter to choose.” |
+| `boxWidth` | `number \| null` | `null` | Fixed inner content width (min 15). If `null`, width auto-sizes to content (capped by terminal width). If the terminal is too narrow for 15 inner columns, it renders a small boxed message “Too narrow to render (need at least 15 columns).”. Values below 15 throw. |
 
 ### Choice shapes
 

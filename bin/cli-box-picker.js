@@ -11,6 +11,7 @@ const { pickBox } = require('../lib');
       s: { value: 'Sleeping', description: 'Away from keyboard' }
     },
     borderStyle: 'round',
+    boxWidth: null,
     descriptionDisplay: 'selected',
     showFooterHint: false
   });
