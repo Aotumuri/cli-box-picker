@@ -8,7 +8,8 @@
     "box-picker": "./bin/cli-box-picker.js"
   },
   "scripts": {
-    "start": "node ./bin/cli-box-picker.js"
+    "start": "node ./bin/cli-box-picker.js",
+    "test": "node --test"
   },
   "engines": {
     "node": ">=18"
