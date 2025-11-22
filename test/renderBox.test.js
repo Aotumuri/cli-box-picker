@@ -70,3 +70,11 @@ test('throws if boxWidth is below 15', () => {
     /boxWidth must be at least 15/
   );
 });
+
+test('supports double border style', () => {
+  Object.defineProperty(process.stdout, 'columns', { value: 40, configurable: true });
+  const { text } = renderBox('Q', [{ key: 'a', label: 'Alpha' }], 0, 'double', [], [[]]);
+  const lines = text.split('\n');
+  assert(lines[0].startsWith('╔'), 'double top border');
+  assert(lines[lines.length - 1].startsWith('╚'), 'double bottom border');
+});

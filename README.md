@@ -58,7 +58,7 @@ const { pickBox } = require('cli-box-picker');
 | `question` | `string` | required | Text shown at the top of the box (multi-line allowed). |
 | `choices` | `Array` \| `Object` | required | Either an array or an object. Values can be strings or `{ value, label, description }`. Object keys become hotkeys. |
 | `defaultIndex` | `number` | `0` | Initial selected index. |
-| `borderStyle` | `'round' \| 'single'` | `'round'` | Border style characters. |
+| `borderStyle` | `'round' \| 'single' \| 'double'` | `'round'` | Border style characters. |
 | `confirm` | `boolean` | `true` | If `true`, asks for confirmation (Enter/y to confirm, n to go back). |
 | `descriptionPlacement` | `'inline' \| 'footer'` | `'inline'` | Where to show descriptions. |
 | `descriptionDisplay` | `'selected' \| 'always' \| 'none'` | `'selected'` | When to show descriptions. |

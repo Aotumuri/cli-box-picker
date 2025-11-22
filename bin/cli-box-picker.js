@@ -10,7 +10,7 @@ const { pickBox } = require('../lib');
       r: { value: 'Reviewing', description: 'Reading or reviewing changes' },
       s: { value: 'Sleeping', description: 'Away from keyboard' }
     },
-    borderStyle: 'round',
+    borderStyle: 'double',
     boxWidth: null,
     descriptionDisplay: 'selected',
     showFooterHint: false
