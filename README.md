@@ -59,6 +59,7 @@ const { pickBox } = require('cli-box-picker');
 | `choices` | `Array` \| `Object` | required | Either an array or an object. Values can be strings or `{ value, label, description }`. Object keys become hotkeys. |
 | `defaultIndex` | `number` | `0` | Initial selected index. |
 | `borderStyle` | `'round' \| 'single' \| 'double'` | `'round'` | Border style characters. |
+| `selectedColor` | `string \| function` | `null` (defaults to cyan) | Chalk color name (e.g. `'green'`) or custom highlighter function for the selected line. |
 | `confirm` | `boolean` | `true` | If `true`, asks for confirmation (Enter/y to confirm, n to go back). |
 | `descriptionPlacement` | `'inline' \| 'footer'` | `'inline'` | Where to show descriptions. |
 | `descriptionDisplay` | `'selected' \| 'always' \| 'none'` | `'selected'` | When to show descriptions. |

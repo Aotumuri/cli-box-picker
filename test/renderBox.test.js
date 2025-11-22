@@ -78,3 +78,20 @@ test('supports double border style', () => {
   assert(lines[0].startsWith('╔'), 'double top border');
   assert(lines[lines.length - 1].startsWith('╚'), 'double bottom border');
 });
+
+test('applies custom highlight function for selected line', () => {
+  const highlighter = (s) => `[H]${s}[H]`;
+  const { text } = renderBox(
+    'Q',
+    [{ key: 'a', label: 'Alpha' }, { key: 'b', label: 'Beta' }],
+    0,
+    'round',
+    [],
+    [[]],
+    null,
+    highlighter
+  );
+  const lines = text.split('\n');
+  const selectedLine = lines.find((l) => l.includes('[H]'));
+  assert(selectedLine, 'selected line should be highlighted by custom function');
+});
