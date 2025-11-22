@@ -1,6 +1,6 @@
 {
   "name": "cli-box-picker",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A simple CLI box picker that renders a boxed question and selectable choices.",
   "main": "lib/index.js",
   "type": "commonjs",
