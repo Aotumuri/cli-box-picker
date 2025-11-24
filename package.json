@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "node ./bin/cli-box-picker.js",
-    "test": "node --test"
+    "test": "node --test",
+    "postversion": "git push && git push --tags"
   },
   "engines": {
     "node": ">=18"
