@@ -68,3 +68,26 @@ test('rejects when choices are empty', async () => {
     /choices must be a non-empty array or object/
   );
 });
+
+test('multiPickBox toggles selections via hotkeys', async () => {
+  const outputs = [];
+  console.log = (str) => outputs.push(str);
+  console.clear = () => {};
+
+  keyHandler.listenForKeys = (onChange, onSubmit, onHotkey) => {
+    onHotkey('b');
+    onHotkey('t');
+    setImmediate(onSubmit);
+    return () => {};
+  };
+
+  const { multiPickBox } = require('../lib/multiPicker');
+  const res = await multiPickBox({
+    question: 'Q',
+    choices: { b: 'Build', t: 'Test', l: 'Lint' },
+    confirm: false,
+    showFooterHint: false
+  });
+
+  assert.deepStrictEqual(res.values, ['Build', 'Test']);
+});

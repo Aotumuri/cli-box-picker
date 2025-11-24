@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "type": "commonjs",
   "bin": {
-    "box-picker": "./bin/cli-box-picker.js"
+    "box-picker": "./bin/cli-box-picker.js",
+    "box-picker-multi": "./bin/cli-box-picker-multi.js"
   },
   "scripts": {
     "start": "node ./bin/cli-box-picker.js",

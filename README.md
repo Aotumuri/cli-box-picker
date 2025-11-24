@@ -48,7 +48,7 @@ main();
 ## API
 
 ```js
-const { pickBox } = require('cli-box-picker');
+const { pickBox, multiPickBox } = require('cli-box-picker');
 ```
 
 ### `await pickBox(options)`
@@ -75,13 +75,31 @@ const { pickBox } = require('cli-box-picker');
 ### Key handling
 
 - Up/Down arrows to move (wraps around).
-- Hotkeys jump/select immediately.
+- Hotkeys jump/select immediately (and toggle in multi mode).
 - Enter: select (or confirm if `confirm: true`).
+- Space (multiPickBox): toggle current item.
 - Ctrl+C: exit process.
+
+### `await multiPickBox(options)`
+
+Same options as `pickBox` (multi-select specific behavior: Space/hotkeys toggle items; Enter confirms; returns arrays):
+
+```js
+const result = await multiPickBox({
+  question: 'Select tasks to run',
+  choices: { b: 'Build', t: 'Test', l: 'Lint' },
+  borderStyle: 'double'
+});
+
+console.log(result.indices); // e.g., [0, 2]
+console.log(result.values);  // ['Build', 'Lint']
+```
 
 ## CLI demo script
 
 `bin/cli-box-picker.js` calls the API with a sample question; usable via `npx cli-box-picker` or after a local install `npx .`.
+
+`bin/cli-box-picker-multi.js` demonstrates `multiPickBox` (multi-select). Use `npx box-picker-multi` or `node bin/cli-box-picker-multi.js`.
 
 ## Tests
 
