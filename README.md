@@ -6,6 +6,8 @@ Small interactive picker for terminals. Renders a boxed question with selectable
 
 ```sh
 npm install cli-box-picker
+# renderer only
+npm install cli-box-renderer
 # or
 npx cli-box-picker
 ```

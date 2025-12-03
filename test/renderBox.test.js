@@ -18,35 +18,19 @@ afterEach(() => {
   }
 });
 
-test('renders inline descriptions with wrapping and indentation', () => {
-  const { text } = renderBox(
-    'Q:',
-    [{ key: 'a', label: 'Alpha' }],
-    0,
-    'round',
-    [],
-    [['This description is long enough to wrap to the next line']]
-  );
-
-  const lines = text.split('\n');
-  const descLines = lines.filter((line) => line.includes('description') || line.includes('wrap'));
-
-  assert(descLines.length >= 2, 'description should wrap to multiple lines');
-  descLines.forEach((line) => {
-    assert(/^│ {9}/.test(line), 'description lines should keep indent within the box');
+test('wraps long content across lines', () => {
+  const { text } = renderBox('This description is long enough to wrap to the next line', {
+    borderStyle: 'round',
+    boxWidth: 30
   });
+  const lines = text.split('\n').filter((l) => l.startsWith('│'));
+  const contentLines = lines.map((l) => l.slice(2, -2).trimEnd());
+  assert(contentLines.length >= 2, 'description should wrap to multiple lines');
 });
 
 test('shows boxed message when terminal is too narrow (<19 columns total)', () => {
   Object.defineProperty(process.stdout, 'columns', { value: 18, configurable: true });
-  const { text, isNarrow } = renderBox(
-    'Q',
-    [{ key: 'a', label: 'Alpha' }],
-    0,
-    'round',
-    [],
-    [[]]
-  );
+  const { text, isNarrow } = renderBox('Q', { borderStyle: 'round' });
   assert.strictEqual(isNarrow, true);
   const lines = text.split('\n');
   assert(lines[0].startsWith('╭'), 'has top border');
@@ -56,42 +40,13 @@ test('shows boxed message when terminal is too narrow (<19 columns total)', () =
 
 test('throws if boxWidth is below 15', () => {
   Object.defineProperty(process.stdout, 'columns', { value: 80, configurable: true });
-  assert.throws(
-    () =>
-      renderBox(
-        'Q',
-        [{ key: 'a', label: 'Alpha' }],
-        0,
-        'round',
-        [],
-        [[]],
-        10
-      ),
-    /boxWidth must be at least 15/
-  );
+  assert.throws(() => renderBox('Q', { boxWidth: 10 }), /boxWidth must be at least 15/);
 });
 
 test('supports double border style', () => {
   Object.defineProperty(process.stdout, 'columns', { value: 40, configurable: true });
-  const { text } = renderBox('Q', [{ key: 'a', label: 'Alpha' }], 0, 'double', [], [[]]);
+  const { text } = renderBox('Q', { borderStyle: 'double' });
   const lines = text.split('\n');
   assert(lines[0].startsWith('╔'), 'double top border');
   assert(lines[lines.length - 1].startsWith('╚'), 'double bottom border');
-});
-
-test('applies custom highlight function for selected line', () => {
-  const highlighter = (s) => `[H]${s}[H]`;
-  const { text } = renderBox(
-    'Q',
-    [{ key: 'a', label: 'Alpha' }, { key: 'b', label: 'Beta' }],
-    0,
-    'round',
-    [],
-    [[]],
-    null,
-    highlighter
-  );
-  const lines = text.split('\n');
-  const selectedLine = lines.find((l) => l.includes('[H]'));
-  assert(selectedLine, 'selected line should be highlighted by custom function');
 });
