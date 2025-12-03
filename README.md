@@ -58,7 +58,7 @@ const { pickBox, multiPickBox } = require('cli-box-picker');
 | `question` | `string` | required | Text shown at the top of the box (multi-line allowed). |
 | `choices` | `Array` \| `Object` | required | Either an array or an object. Values can be strings or `{ value, label, description }`. Object keys become hotkeys. |
 | `defaultIndex` | `number` | `0` | Initial selected index. |
-| `borderStyle` | `'round' \| 'single' \| 'double'` | `'round'` | Border style characters. |
+| `borderStyle` | `'round' \| 'single' \| 'double'` | `'round'` | Border style characters (passed through to `cli-box-renderer`; unknown values fall back to renderer defaults). |
 | `selectedColor` | `string \| function` | `null` (defaults to cyan) | Chalk color name (e.g. `'green'`) or custom highlighter function for the selected line. |
 | `confirm` | `boolean` | `true` | If `true`, asks for confirmation (Enter/y to confirm, n to go back). |
 | `descriptionPlacement` | `'inline' \| 'footer'` | `'inline'` | Where to show descriptions. |
